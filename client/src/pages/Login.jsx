@@ -1,5 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -20,17 +22,20 @@ function Login() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("role", data.user.role);
       localStorage.setItem("userId", data.user.id);
-
+      toast.success(`Login as user ${data.user.role}`);
+      setTimeout(() => {
       navigate(
         data.user.role === "admin" ? "/dashboard/admin" : "/dashboard/user"
       );
+    }, 1500);
     } else {
-      alert("Login failed");
+    toast.error("Email or password wrong");
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <ToastContainer />
       <div className="w-full max-w-md bg-white p-8 rounded shadow-md">
         <h1 className="text-2xl font-bold text-center text-red-600 mb-4">
           Blood Donation System

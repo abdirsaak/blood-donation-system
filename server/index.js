@@ -6,7 +6,8 @@ import { db } from './db.js';
 import authRoutes from './routes/auth.js';
 import adminRoutes from './routes/admin.js';
 import userRoutes from './routes/user.js';
-
+import donateRoutes from './routes/donate.js';
+import dashboardRoutes from './routes/dashboard.js';
 
 dotenv.config();
 
@@ -21,6 +22,8 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/donate', donateRoutes);
+app.use('/api/dashboard', dashboardRoutes);
 
 
 // DB connection check

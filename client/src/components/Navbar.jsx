@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FaUserCircle } from "react-icons/fa";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
+  const profileRef = useRef();
   const role = localStorage.getItem("role");
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
@@ -14,6 +17,16 @@ const Navbar = () => {
 
   const dashboardPath =
     role === "admin" ? "/dashboard/admin" : "/dashboard/user";
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (profileRef.current && !profileRef.current.contains(event.target)) {
+        setProfileOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   return (
     <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between relative">
@@ -30,10 +43,12 @@ const Navbar = () => {
           </Link>
         )}
         <Link to="/home" className="text-gray-700 hover:text-red-600">Home</Link>
-        <Link to="/contact" className="text-gray-700 hover:text-red-600">Contact</Link>
+        <Link to="/about-us" className="text-gray-700 hover:text-red-600">About us</Link>
+        <Link to="/how-to-donate" className="text-gray-700 hover:text-red-600">How To donate</Link>
+        <Link to="/Request-blood" className="text-gray-700 hover:text-red-600">Request Blood</Link>
 
         {role === "user" && (
-          <Link to="/make-donor" className="text-gray-700 hover:text-red-600">Make Donor</Link>
+          <Link to="/donate" className="text-gray-700 hover:text-red-600">Donate</Link>
         )}
         {role === "admin" && (
           <>
@@ -44,14 +59,29 @@ const Navbar = () => {
       </div>
 
       {/* Right: Auth Buttons */}
-      <div className="hidden md:flex space-x-4">
+      <div className="hidden md:flex space-x-4 items-center">
         {!token ? (
           <>
             <Link to="/register" className="text-gray-700 hover:text-red-600">Register</Link>
             <Link to="/login" className="text-gray-700 hover:text-red-600">Login</Link>
           </>
         ) : (
-          <button onClick={handleLogout} className="text-red-600 hover:underline">Logout</button>
+          <div className="relative" ref={profileRef}>
+            <button onClick={() => setProfileOpen(!profileOpen)} className="text-2xl text-gray-700 hover:text-red-600">
+              <FaUserCircle />
+            </button>
+            {profileOpen && (
+              <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow z-50">
+                <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">Profile</Link>
+                <button
+                  onClick={handleLogout}
+                  className="w-full text-left px-4 py-2 text-red-600 hover:bg-gray-100"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+          </div>
         )}
       </div>
 
@@ -74,7 +104,7 @@ const Navbar = () => {
           <Link to="/contact" onClick={() => setMenuOpen(false)} className="text-gray-700 hover:text-red-600">Contact</Link>
 
           {role === "user" && (
-            <Link to="/make-donor" onClick={() => setMenuOpen(false)} className="text-gray-700 hover:text-red-600">Make Donor</Link>
+            <Link to="/donate" onClick={() => setMenuOpen(false)} className="text-gray-700 hover:text-red-600">Donate</Link>
           )}
           {role === "admin" && (
             <>

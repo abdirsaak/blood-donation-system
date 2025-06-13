@@ -10,6 +10,7 @@ import blood_donatio_3 from "../assets/images/blood_donatio_3.png";
 import Navbar from "../components/Navbar";
 import Button from "../components/Button";
 import Card from "../components/Card";
+import Footer from "../components/Footer";
 const Home = () => {
   return (
 <>
@@ -75,7 +76,7 @@ const Home = () => {
 
 
 {/* ......cards */}
-    <div>
+    <div className=" relative top-[220px] md:relative md:top-[0px]">
 <div className="my-10 px-4">
   <h2 className="text-center text-3xl font-bold mb-6">Donation Highlights</h2>
   <div className="grid gap-6 md:grid-cols-3">
@@ -110,6 +111,12 @@ const Home = () => {
 
     </div> 
 
+
+    {/* .............header */}
+    
+        <div className=" relative top-[230px] md:relative md:top-[0px]">
+          <Footer />
+        </div>
 </>
   
   );
