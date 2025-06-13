@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-
+import { ToastContainer, toast } from "react-toastify";
 function Register() {
   const navigate = useNavigate();
 
@@ -29,8 +29,10 @@ function Register() {
     const data = await res.json();
 
     if (data.message === "User registered successfully") {
-      alert("Registration successful. Please login.");
+      toast.success("Registration successful! Please log in.");
+       setTimeout(() => {
       navigate("/login");
+    }, 3000);
     } else {
       alert("Registration failed.");
     }
@@ -38,6 +40,7 @@ function Register() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <ToastContainer />
       <div className="w-full max-w-md bg-white p-8 rounded shadow-md">
          <h1 className="text-2xl font-bold text-center text-red-600 mb-4">
           Blood Donation System

@@ -37,6 +37,18 @@ function UserDashboard() {
 
     fetchDashboardData();
   }, [token]);
+    const getStatusClass = (status) => {
+    switch (status.toLowerCase()) {
+      case "pending":
+        return "bg-yellow-200 text-yellow-800 font-semibold rounded px-2 py-1";
+      case "approved":
+        return "bg-green-200 text-green-800 font-semibold rounded px-2 py-1";
+      case "rejected":
+        return "bg-red-200 text-red-800 font-semibold rounded px-2 py-1";
+      default:
+        return "bg-gray-200 text-gray-800 font-semibold rounded px-2 py-1";
+    }
+  };
 
   return (
     <div>
@@ -60,6 +72,7 @@ function UserDashboard() {
           <thead className="bg-gray-200">
             <tr>
               <th className="p-2">#</th>
+              <th className="p-2">Donor Name</th>
               <th className="p-2">Blood Type</th>
               <th className="p-2">Date</th>
               <th className="p-2">Location</th>
@@ -70,10 +83,13 @@ function UserDashboard() {
             {topAppointments.map((a, index) => (
               <tr key={a.id} className="text-center border-t">
                 <td className="p-2">{index + 1}</td>
+                 <td className="p-2">{a.donor_name || "Myself"}</td>
                 <td className="p-2">{a.bloodType}</td>
                 <td className="p-2">{a.appointmentDate?.split("T")[0]}</td>
                 <td className="p-2">{a.location}</td>
-                <td className="p-2">{a.status}</td>
+              <td className="p-2">
+                <span className={getStatusClass(a.status)}>{a.status}</span>
+              </td>
               </tr>
             ))}
           </tbody>

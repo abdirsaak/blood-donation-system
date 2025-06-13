@@ -16,7 +16,7 @@ export const getTotalAppointments = (req, res) => {
 export const getTopAppointments = (req, res) => {
   const userId = req.user.id;
   const sql = `
-    SELECT id, bloodType, appointmentDate, location, status
+    SELECT id, bloodType, appointmentDate, location, status,donor_name
     FROM donate_appointments
     WHERE user_id = ?
     ORDER BY appointmentDate DESC
