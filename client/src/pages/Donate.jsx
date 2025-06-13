@@ -29,25 +29,51 @@ function MakeDonor() {
     fetchAppointments();
   }, []);
 
+  // const handleCreate = async (e) => {
+  //   e.preventDefault();
+  //   const res= await fetch("http://localhost:5000/api/donate", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //     body: JSON.stringify(form),
+  //   });
+  //     if (res.ok) {
+  //     toast.success("Created appointment success");
+  //   } else {
+  //     toast.error("Something went wrong");
+  //   }
+  //   setShowCreateModal(false);
+  //   setForm({ bloodType: "", appointmentDate: "", location: "" });
+  //   fetchAppointments();
+  // };
   const handleCreate = async (e) => {
-    e.preventDefault();
-    const res= await fetch("http://localhost:5000/api/donate", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(form),
-    });
-      if (res.ok) {
-      toast.success("Created appointment success");
-    } else {
-      toast.error("Something went wrong");
-    }
+  e.preventDefault();
+  const res = await fetch("http://localhost:5000/api/donate", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(form),
+  });
+
+  const data = await res.json();
+
+  if (res.ok) {
+    toast.success("Created appointment success");
     setShowCreateModal(false);
     setForm({ bloodType: "", appointmentDate: "", location: "" });
     fetchAppointments();
-  };
+  } else {
+    if (data.message === "Already created this blood type") {
+      toast.error("Already created this blood type");
+    } else {
+      toast.error("Something went wrong");
+    }
+  }
+};
 
   const openEditModal = (appointment) => {
     setEditForm({
@@ -92,6 +118,18 @@ function MakeDonor() {
     setDeleteId(null);
     fetchAppointments();
   };
+  const getStatusClass = (status) => {
+  switch (status.toLowerCase()) {
+    case "pending":
+      return "bg-yellow-200 text-yellow-800 font-semibold rounded px-2 py-1";
+    case "approved":
+      return "bg-green-200 text-green-800 font-semibold rounded px-2 py-1";
+    case "recjected":
+      return "bg-red-200 text-red-800 font-semibold rounded px-2 py-1";
+    default:
+      return "bg-gray-200 text-gray-800 font-semibold rounded px-2 py-1";
+  }
+};
 
   return (
     <>
@@ -134,7 +172,10 @@ function MakeDonor() {
       <td className="p-2">{a.bloodType}</td>
       <td className="p-2">{a.appointmentDate.split("T")[0]}</td>
       <td className="p-2">{a.location}</td>
-      <td className="p-2">{a.status}</td>
+      {/* <td className="p-2">{a.status}</td> */}
+      <td className="p-2">
+        <span className={getStatusClass(a.status)}>{a.status}</span>
+      </td>
       <td> {formatDistanceToNow(new Date(a.created_at), { addSuffix: true })}</td>
       <td className="p-2 space-x-2">
        
