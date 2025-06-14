@@ -40,7 +40,10 @@ export const updateUserProfile = (req, res) => {
   values.push(userId);
 
   db.query(sql, values, (err, result) => {
-    if (err) return res.status(500).json({ error: 'Update failed' });
+    if (err) {
+      console.error('DB Update Error:', err); // <-- Log actual DB error here
+      return res.status(500).json({ error: 'Update failed', details: err.message });
+    }
     res.json({ message: 'Profile updated' });
   });
 };

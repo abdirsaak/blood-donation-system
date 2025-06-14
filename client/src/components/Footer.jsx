@@ -1,56 +1,60 @@
-import React from 'react'
-import donate_img from '../assets/images/donate_img.png'
+import React from 'react';
+import donate_img from '../assets/images/donate_img.png';
+import { Link } from 'react-router-dom';
 
-import { Link, useNavigate } from "react-router-dom";
 function Footer() {
   return (
-   
-    <>
-                <div className="bg-[#EC78A4] md:flex md:justify-between md:items-center p-6 text-center md:text-left text-white">	    
-                  
-                    {/* img */}
-                    <div className="">
-                        <img className='hidden md:block' src={donate_img} alt="" />
-                    </div>
+    <footer className="bg-[#EC78A4] text-white px-6 py-10 md:px-20">
+      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+        
+        {/* Logo/Image */}
+        <div className="flex justify-center md:justify-start">
+          <img
+            className="w-40 hidden md:block"
+            src={donate_img}
+            alt="Donate"
+          />
+        </div>
 
-                    {/* links */}
-                    <div className="hidden md:block">
-                        <nav className='md:flex md:flex-col md:justify-around md:items-center space-y-6'>
-                           <Link to="/home" className="text-gray-700 hover:text-red-600">Home</Link>
-                           <Link to="/about-us" className="text-gray-700 hover:text-red-600">about us</Link>
-                            <Link to="/how to donate" className="text-gray-700 hover:text-red-600">How To donate</Link>
-                            <Link to="/Request-blood" className="text-gray-700 hover:text-red-600">Request Blood</Link>
-                        </nav>
-                    </div>
+        {/* Navigation Links */}
+        <div className="text-center md:text-left">
+          <h2 className="text-xl font-semibold mb-4">Quick Links</h2>
+          <nav className="flex flex-col space-y-3">
+            <Link to="/home" className="hover:text-gray-100 transition">Home</Link>
+            <Link to="/about-us" className="hover:text-gray-100 transition">About Us</Link>
+            <Link to="/how to donate" className="hover:text-gray-100 transition">How to Donate</Link>
+            <Link to="/Request-blood" className="hover:text-gray-100 transition">Request Blood</Link>
+          </nav>
+        </div>
 
-                    {/* content */}
+        {/* Info Section */}
+        <div className="text-center md:text-left">
+          <h2 className="text-xl font-semibold mb-4">Somali Blood Donation System</h2>
+          <p className="text-sm leading-relaxed">
+            Somali Blood Donation Management System is a platform that simplifies blood donation 
+            for both donors and recipients. It is a web-based system that streamlines donation processes 
+            and manages blood bank logistics effectively.
+          </p>
+        </div>
+      </div>
 
-                    <div className="text-center md:text-left p-4 text-white ">
-                        <h1 className='font-bold py-6'> Somali Blood donation System</h1>
-                        <p className='md:w-[400px]'>
-                            Somali Blood donation management 
-                            system is a system that makes it 
-                            easy for people to donate blood 
-                            online in a timely manner for both 
-                            donors and recipients. It's also a 
-                            web-based system that can help 
-                            with blood bag information during 
-                            handling in the blood bank.
-                        </p>
-                    </div>
-                      {/* links */}
-                    <div className=" md:hidden mt-4 pl-2 text-white">
-                        <h1 className='font-bold text-[30px]'>Services</h1>
-                        <nav className='flex flex-col  space-y-2 mt-6'>
-                           <Link to="/home" className="text-white font-bold py-[2px] hover:text-red-600">Home</Link>
-                           <Link to="/about-us" className="text-white font-bold py-[2px] hover:text-red-600">about us</Link>
-                           <Link to="/how to donate" className="text-white font-bold py-[2px] hover:text-red-600">How To donate</Link>
-                           <Link to="/Request-blood" className="text-white font-bold py-[2px] hover:text-red-600">Request Blood</Link>
-                        </nav>
-                    </div>
-                </div>
-    </>
-  )
+      {/* Mobile-Only Nav (Optional if keeping above mobile-friendly) */}
+      <div className="hidden mt-10 text-center">
+        <h2 className="text-lg font-semibold mb-4">Services</h2>
+        <nav className="space-y-2">
+          <Link to="/home" className="block font-medium hover:text-gray-100">Home</Link>
+          <Link to="/about-us" className="block font-medium hover:text-gray-100">About Us</Link>
+          <Link to="/how to donate" className="block font-medium hover:text-gray-100">How to Donate</Link>
+          <Link to="/Request-blood" className="block font-medium hover:text-gray-100">Request Blood</Link>
+        </nav>
+      </div>
+
+      {/* Bottom Copy */}
+      <div className="mt-12 text-center text-sm text-white/80">
+        &copy; {new Date().getFullYear()} Somali Blood Donation System. All rights reserved.
+      </div>
+    </footer>
+  );
 }
 
-export default Footer
+export default Footer;

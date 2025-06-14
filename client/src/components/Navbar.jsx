@@ -32,7 +32,7 @@ const Navbar = () => {
     <nav className="bg-white shadow-md px-6 py-4 flex items-center justify-between relative">
       {/* Left: Logo */}
       <div className="text-xl font-bold text-red-600">
-        <Link to="/">Blood Bank</Link>
+        <Link to="/">Somali Blood Donation</Link>
       </div>
 
       {/* Center: Nav Links */}
@@ -45,7 +45,7 @@ const Navbar = () => {
         <Link to="/home" className="text-gray-700 hover:text-red-600">Home</Link>
         <Link to="/about-us" className="text-gray-700 hover:text-red-600">About us</Link>
         <Link to="/how-to-donate" className="text-gray-700 hover:text-red-600">How To donate</Link>
-        <Link to="/Request-blood" className="text-gray-700 hover:text-red-600">Request Blood</Link>
+       
 
         {role === "user" && (
           <Link to="/donate" className="text-gray-700 hover:text-red-600">Donate</Link>
